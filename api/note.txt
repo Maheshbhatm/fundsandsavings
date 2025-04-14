@@ -1,0 +1,20 @@
+python3 -m venv .venv
+ 
+source .venv/bin/activate
+echo $VIRTUAL_ENV
+
+pip3 install fastapi uvicorn
+
+uvicorn main:app
+
+pip3 freeze > requirement.txt  
+
+docker build -t fastapi .
+
+docker run --rm -it -p 8000:8000 fastapi bash
+
+docker rmi fastapi
+
+docker compose up
+
+docker compose up --build
